@@ -31,15 +31,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           {/* Brand Info */}
           <div className="space-y-4 sm:space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 flex items-center justify-center flex-shrink-0">
-                <Heart className="text-white w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
-                Tumaini<span className="text-emerald-300">AI</span>
-              </span>
-            </div>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed pt-4">
               Empowering mental wellness through AI-powered early detection and intervention for a healthier tomorrow.
             </p>
             <div className="flex flex-wrap gap-3 sm:gap-4">

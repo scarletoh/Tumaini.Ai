@@ -3,45 +3,93 @@ import { Menu, X, Heart, Globe, ChevronDown, ChevronUp, MessageCircle } from 'lu
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   onNavigate?: (section: string) => void;
 }
 
 export function Header({ onNavigate }: HeaderProps) {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState<'en' | 'sw'>('en');
 
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState<string | null>(null);
 
+  interface NavItem {
+    label: string;
+    section: string;
+    subItems?: Array<{ label: string; section: string }>;
+    isExternal?: boolean;
+    href?: string;
+  }
+
+  const handleNavItemClick = (item: NavItem, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    if (item.isExternal && item.href) {
+      // For external links (like /chat), use React Router's navigate
+      navigate(item.href);
+      setIsMenuOpen(false);
+      window.scrollTo(0, 0);
+    } else if (onNavigate) {
+      // For internal navigation (sections on the same page)
+      onNavigate(item.section);
+      setIsMenuOpen(false);
+    } else {
+      // Fallback for direct page navigation
+      navigate(`/#${item.section}`);
+      setIsMenuOpen(false);
+      window.scrollTo(0, 0);
+    }
+    setIsHovered(null);
+  };
+
   const navItems = [
-    { label: 'Home', section: 'home' },
-    { label: 'Dashboard', section: 'dashboard' },
+    { 
+      label: 'Home', 
+      section: 'home',
+      href: '/#home'
+    },
+    { 
+      label: 'Dashboard', 
+      section: 'dashboard',
+      href: '/#dashboard'
+    },
     { 
       label: 'Features', 
       section: 'features',
+      href: '/#features',
       subItems: [
-        { label: 'Voice Analysis', section: 'voice' },
-        { label: 'Mood Tracking', section: 'mood' },
-        { label: 'Wellness Insights', section: 'insights' },
+        { label: 'Voice Analysis', section: 'voice', href: '/#voice' },
+        { label: 'Mood Tracking', section: 'mood', href: '/mood-tracker' },
+        { label: 'Wellness Insights', section: 'insights', href: '/#insights' },
       ]
     },
-    { label: 'Chat', section: 'chat' },
-    { label: 'Resources', section: 'resources' },
+    { 
+      label: 'Chat', 
+      section: 'chat',
+      isExternal: true,
+      href: '/chat'
+    },
+    { 
+      label: 'Resources', 
+      section: 'resources',
+      href: '/#resources'
+    },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+      setScrolled(window.scrollY > 10);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+  }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'en' ? 'sw' : 'en');
@@ -63,7 +111,11 @@ export function Header({ onNavigate }: HeaderProps) {
             className="flex items-center gap-3 cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => onNavigate?.('home')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/');
+              window.scrollTo(0, 0);
+            }}
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
               <MessageCircle className="w-5 h-5 text-white" />
@@ -83,28 +135,51 @@ export function Header({ onNavigate }: HeaderProps) {
                   onMouseEnter={() => setIsHovered(item.section)}
                   onMouseLeave={() => setIsHovered(null)}
                 >
-                  <button
-                    onClick={() => onNavigate?.(item.section)}
-                    className={cn(
-                      'relative px-4 h-full flex items-center text-sm font-medium transition-colors',
-                      'text-muted-foreground hover:text-foreground group',
-                      isHovered === item.section ? 'text-foreground' : ''
-                    )}
-                  >
-                    <span className="relative z-10">
-                      {item.label}
-                      {item.subItems && (
-                        <ChevronDown className="inline-block w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 transition-opacity" />
-                      )}
-                    </span>
-                    <span 
+                  {item.isExternal ? (
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleNavItemClick(item, e)}
                       className={cn(
-                        'absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/60',
-                        'transform origin-left scale-x-0 transition-transform duration-300',
-                        isHovered === item.section ? 'scale-x-100' : 'scale-x-0'
+                        'relative px-4 h-full flex items-center text-sm font-medium transition-colors',
+                        'text-muted-foreground hover:text-foreground group',
+                        isHovered === item.section ? 'text-foreground' : ''
                       )}
-                    />
-                  </button>
+                    >
+                      <span className="relative z-10">
+                        {item.label}
+                      </span>
+                      <span 
+                        className={cn(
+                          'absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/60',
+                          'transform origin-left scale-x-0 transition-transform duration-300',
+                          isHovered === item.section ? 'scale-x-100' : 'scale-x-0'
+                        )}
+                      />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => handleNavItemClick(item)}
+                      className={cn(
+                        'relative px-4 h-full flex items-center text-sm font-medium transition-colors',
+                        'text-muted-foreground hover:text-foreground group',
+                        isHovered === item.section ? 'text-foreground' : ''
+                      )}
+                    >
+                      <span className="relative z-10">
+                        {item.label}
+                        {item.subItems && (
+                          <ChevronDown className="inline-block w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 transition-opacity" />
+                        )}
+                      </span>
+                      <span 
+                        className={cn(
+                          'absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/60',
+                          'transform origin-left scale-x-0 transition-transform duration-300',
+                          isHovered === item.section ? 'scale-x-100' : 'scale-x-0'
+                        )}
+                      />
+                    </button>
+                  )}
                   
                   {/* Dropdown Menu */}
                   {item.subItems && (
@@ -157,7 +232,11 @@ export function Header({ onNavigate }: HeaderProps) {
             <Button 
               size="sm" 
               className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all"
-              onClick={() => onNavigate?.('dashboard')}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/#dashboard');
+                window.scrollTo(0, 0);
+              }}
             >
               <span className="font-medium">Get Started</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right">
@@ -199,7 +278,11 @@ export function Header({ onNavigate }: HeaderProps) {
                   <div key={item.section} className="border-b border-gray-100 dark:border-gray-800 last:border-0">
                     <button
                       onClick={() => {
-                        if (!item.subItems) {
+                        if (item.isExternal && item.href) {
+                          navigate(item.href);
+                          setIsMenuOpen(false);
+                          window.scrollTo(0, 0);
+                        } else if (!item.subItems) {
                           onNavigate?.(item.section);
                           setIsMenuOpen(false);
                         } else {

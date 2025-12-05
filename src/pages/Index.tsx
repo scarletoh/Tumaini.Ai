@@ -23,7 +23,7 @@ const Index = () => {
     switch (activeSection) {
       case 'dashboard':
         return (
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 pt-16 pb-8">
             <Dashboard profile={profile} onCompleteIntervention={completeIntervention} />
           </div>
         );
@@ -40,7 +40,7 @@ const Index = () => {
         return <ResourcesSection />;
       case 'insights':
         return (
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 pt-16 pb-8">
             <Dashboard profile={profile} onCompleteIntervention={completeIntervention} />
           </div>
         );

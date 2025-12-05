@@ -41,12 +41,12 @@ export function Dashboard({ profile, onCompleteIntervention }: DashboardProps) {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pt-16">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4">
         <div>
           <h2 className="text-2xl font-display font-bold text-foreground">
-            Welcome back, {profile.name.split(' ')[0]}
+            Welcome back, {profile.name}
           </h2>
           <p className="text-muted-foreground">Here's your mental wellness overview</p>
         </div>

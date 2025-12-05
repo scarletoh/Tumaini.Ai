@@ -2,7 +2,7 @@ import { MentalHealthProfile, CrisisResource } from '@/types/mental-health';
 
 export const mockProfile: MentalHealthProfile = {
   userId: 'user-001',
-  name: 'Sarah Wanjiku',
+  name: 'Scar',
   currentScore: 72,
   previousScore: 68,
   weeklyTrends: [
