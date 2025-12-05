@@ -1,12 +1,14 @@
 import { VoiceAnalysis } from '@/types/mental-health';
 import { Mic, Clock, MessageSquare, Smile, Meh, Frown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface VoiceAnalysisResultsProps {
   analysis: VoiceAnalysis;
+  onNewRecording?: () => void;
 }
 
-export function VoiceAnalysisResults({ analysis }: VoiceAnalysisResultsProps) {
+export function VoiceAnalysisResults({ analysis, onNewRecording }: VoiceAnalysisResultsProps) {
   const getSentimentIcon = () => {
     switch (analysis.sentiment) {
       case 'positive':
@@ -55,6 +57,17 @@ export function VoiceAnalysisResults({ analysis }: VoiceAnalysisResultsProps) {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <div className="flex justify-end">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={onNewRecording}
+          className="flex items-center gap-2"
+        >
+          <Mic className="w-4 h-4" />
+          New Recording
+        </Button>
+      </div>
       {/* Overall Sentiment */}
       <div className={cn('p-6 rounded-xl border text-center', getSentimentColor())}>
         <div className="flex items-center justify-center gap-3">

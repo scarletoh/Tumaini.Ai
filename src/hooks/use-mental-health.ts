@@ -68,6 +68,7 @@ export function useMentalHealth() {
 
   return {
     profile,
+    analysisHistory: profile?.voiceAnalysis || [],
     isLoading,
     updateProfile,
     completeIntervention,

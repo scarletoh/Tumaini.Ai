@@ -57,32 +57,6 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
       controls3.stop();
     };
   }, []);
-  const features = [
-    { 
-      icon: Heart, 
-      label: 'Compassionate Care', 
-      color: 'text-red-500',
-      description: 'Personalized support tailored to your needs'
-    },
-    { 
-      icon: Shield, 
-      label: 'Privacy First', 
-      color: 'text-blue-500',
-      description: 'End-to-end encryption for all your data'
-    },
-    { 
-      icon: Brain, 
-      label: 'AI-Powered', 
-      color: 'text-purple-500',
-      description: 'Advanced algorithms for accurate insights'
-    },
-    { 
-      icon: BarChart3, 
-      label: 'Real-time Insights', 
-      color: 'text-emerald-500',
-      description: 'Instant feedback on your mental wellbeing'
-    },
-  ];
 
   const container = {
     hidden: { opacity: 0 },
@@ -199,66 +173,61 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Features Grid */}
-          <motion.div 
-            variants={container}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
-          >
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={feature.label}
-                  variants={item}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="group relative p-6 bg-white/80 hover:bg-white rounded-2xl border border-white hover:border-slate-200 shadow-sm hover:shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300"
-                >
-                  <div className={`p-3 rounded-xl ${feature.color}/20 w-fit mb-4`}>
-                    <Icon className={`w-6 h-6 ${feature.color}`} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-800 mb-2">{feature.label}</h3>
-                  <p className="text-sm text-slate-600">{feature.description}</p>
-                  <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
-          {/* Stats */}
+          {/* Enhanced Stats */}
           <motion.div 
             variants={item}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8 p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-white shadow-sm"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-20"
           >
-            <div className="text-center">
-              <div className="text-4xl font-display font-bold bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent mb-2">
+            <motion.div 
+              className="bg-white/80 hover:bg-white p-6 rounded-2xl border border-white/50 shadow-sm hover:shadow-md backdrop-blur-sm transition-all duration-300 group"
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <div className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-cyan-500 bg-clip-text text-transparent mb-3">
                 <motion.span>{count1Rounded}</motion.span>%
               </div>
-              <div className="text-sm font-medium text-slate-600">Accuracy Rate</div>
-              <div className="mt-2 flex items-center justify-center gap-1 text-xs text-primary">
-                <Star className="w-3 h-3 fill-current" />
+              <div className="text-lg font-semibold text-slate-800 mb-1">Accuracy Rate</div>
+              <div className="flex items-center justify-start gap-2 text-sm text-slate-600">
+                <div className="p-1.5 bg-primary/10 rounded-lg">
+                  <Star className="w-4 h-4 text-primary" />
+                </div>
                 <span>Industry Leading</span>
               </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-display font-bold bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent mb-2">
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
+            
+            <motion.div 
+              className="bg-white/80 hover:bg-white p-6 rounded-2xl border border-white/50 shadow-sm hover:shadow-md backdrop-blur-sm transition-all duration-300 group"
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <div className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-cyan-500 bg-clip-text text-transparent mb-3">
                 <motion.span>{count2Rounded}</motion.span>%
               </div>
-              <div className="text-sm font-medium text-slate-600">Uptime</div>
-              <div className="mt-2 flex items-center justify-center gap-1 text-xs text-emerald-400">
-                <Zap className="w-3 h-3 fill-current" />
+              <div className="text-lg font-semibold text-slate-800 mb-1">Uptime</div>
+              <div className="flex items-center justify-start gap-2 text-sm text-slate-600">
+                <div className="p-1.5 bg-emerald-100/50 rounded-lg">
+                  <Zap className="w-4 h-4 text-emerald-500" />
+                </div>
                 <span>Always Available</span>
               </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-display font-bold bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent mb-2">
-                <motion.span>{count3Rounded}</motion.span>
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-gradient-to-br from-emerald-100/30 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
+            
+            <motion.div 
+              className="bg-white/80 hover:bg-white p-6 rounded-2xl border border-white/50 shadow-sm hover:shadow-md backdrop-blur-sm transition-all duration-300 group"
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <div className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-cyan-500 bg-clip-text text-transparent mb-3">
+                <motion.span>{count3Rounded}</motion.span>+
               </div>
-              <div className="text-sm font-medium text-slate-600">Users Helped</div>
-              <div className="mt-2 flex items-center justify-center gap-1 text-xs text-amber-400">
-                <Award className="w-3 h-3 fill-current" />
+              <div className="text-lg font-semibold text-slate-800 mb-1">Users Helped</div>
+              <div className="flex items-center justify-start gap-2 text-sm text-slate-600">
+                <div className="p-1.5 bg-amber-100/50 rounded-lg">
+                  <Award className="w-4 h-4 text-amber-500" />
+                </div>
                 <span>Trusted Worldwide</span>
               </div>
-            </div>
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-gradient-to-br from-amber-100/30 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
