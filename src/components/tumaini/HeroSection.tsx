@@ -101,26 +101,26 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-teal-50">
+    <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/80 to-teal-50/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-emerald-50/90 to-lime-50/90" />
         
         {/* Floating gradient orbs */}
-        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-r from-blue-100/50 to-teal-100/50 rounded-full blur-3xl animate-float opacity-70" />
-        <div className="absolute bottom-1/3 -right-20 w-[600px] h-[600px] bg-gradient-to-r from-blue-50/50 to-teal-50/50 rounded-full blur-3xl animate-float opacity-70" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-gradient-to-r from-blue-50/30 via-teal-50/30 to-cyan-50/30 blur-3xl opacity-50" />
+        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-gradient-to-r from-emerald-100/60 to-green-100/60 rounded-full blur-3xl animate-float opacity-70" />
+        <div className="absolute bottom-1/3 -right-20 w-[600px] h-[600px] bg-gradient-to-r from-lime-100/60 to-emerald-100/60 rounded-full blur-3xl animate-float opacity-70" style={{ animationDelay: '3s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-gradient-to-r from-green-50/40 via-emerald-50/40 to-lime-50/40 blur-3xl opacity-60" />
         
         {/* Grid pattern removed as requested */}
         
         {/* Floating particles */}
         {[...Array(20)].map((_, i) => (
-          <Particle key={i} className={i % 3 === 0 ? 'bg-blue-300/30' : 'bg-blue-200/20'} />
+          <Particle key={i} className={i % 3 === 0 ? 'bg-emerald-300/30' : 'bg-green-200/20'} />
         ))}
       </div>
 
-      <div className="container mx-auto px-4 pt-48 pb-32 relative z-10">
+      <div className="container mx-auto px-4 pt-32 pb-24 md:pt-40 md:pb-32 relative z-10">
         <motion.div 
           className="max-w-5xl mx-auto text-center"
           initial="hidden"
@@ -136,21 +136,21 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
           >
             <span className="relative">
               <span className="relative z-10">Transforming Mental</span>
-              <span className="absolute -bottom-1 left-0 w-full h-3 bg-teal-100 -rotate-1 -z-0" />
+              <span className="absolute -bottom-1 left-0 w-full h-3 bg-emerald-100 -rotate-1 -z-0" />
             </span>
             <br className="sm:hidden" />
             <span className="relative">
-              <span className="relative z-10 bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="relative z-10 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                 Healthcare with AI
               </span>
-              <span className="absolute -bottom-1 left-0 w-full h-3 bg-primary/20 -rotate-1 -z-0" />
+              <span className="absolute -bottom-1 left-0 w-full h-3 bg-emerald-50 -rotate-1 -z-0" />
             </span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p 
             variants={item}
-            className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-slate-700 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             Tumaini AI leverages cutting-edge artificial intelligence to detect early signs of mental health conditions 
             through voice analysis, enabling timely intervention and personalized care for better outcomes.
@@ -165,7 +165,7 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
               <Button 
                 size="lg" 
                 onClick={onGetStarted} 
-                className="relative overflow-hidden group text-lg px-8 py-6 gap-2 transition-all duration-300 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 shadow-lg shadow-teal-100 hover:shadow-teal-200/50"
+                className="relative overflow-hidden group text-lg px-8 py-6 gap-2 transition-all duration-300 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-lg shadow-emerald-100 hover:shadow-emerald-200/50"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>Begin Voice Analysis</span>
@@ -179,23 +179,23 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="relative z-10 text-lg px-8 py-6 gap-2 group border-2 border-slate-200 bg-white/80 hover:bg-white hover:border-teal-100 transition-all duration-300 text-slate-700 hover:text-slate-900"
+                className="relative z-10 text-lg px-8 py-6 gap-2 group border-2 border-emerald-200 bg-white/90 hover:bg-white hover:border-emerald-300 transition-all duration-300 text-slate-700 hover:text-slate-900"
               >
                 <PlayCircle className="w-5 h-5" />
                 <span>Watch Demo</span>
               </Button>
-              <div className="absolute -inset-1 bg-gradient-to-r from-teal-100 to-blue-100 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-100 to-green-100 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             </motion.div>
           </motion.div>
 
           {/* Trusted By */}
           <motion.div variants={item} className="mb-16">
-            <div className="text-xs uppercase tracking-wider text-slate-500 mb-4">Pioneering the future of mental health diagnostics</div>
-            <div className="flex flex-wrap items-center justify-center gap-8 opacity-70">
-              <div className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">AI-Powered</div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">Clinically Validated</div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">Privacy-First</div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">Early Detection</div>
+            <div className="text-xs uppercase tracking-wider text-emerald-700/80 mb-4 font-medium">Pioneering the future of mental health diagnostics</div>
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-800 to-green-700 bg-clip-text text-transparent">AI-Powered</div>
+              <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-800 to-green-700 bg-clip-text text-transparent">Clinically Validated</div>
+              <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-800 to-green-700 bg-clip-text text-transparent">Privacy-First</div>
+              <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-800 to-green-700 bg-clip-text text-transparent">Early Detection</div>
             </div>
           </motion.div>
 

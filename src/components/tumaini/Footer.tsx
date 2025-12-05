@@ -21,10 +21,10 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-emerald-900 via-green-900 to-emerald-950 text-white relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MV9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50Ml9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjAiIHkxPSIwIiB4Mj0iNjAiIHkyPSI2MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMDA3QUZGIi8+CjxzdGAgb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDA3QUZGIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDFfbGluZWFyIiB4MT0iNjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNBMjA3NUYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQTIwNzVGIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDJfbGluZWFyIiB4MT0iNjAiIHkxPSI2MCIgeDI9IjAiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNBMjA3NUYiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQTIwNzVGIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=) repeat" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MV9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50Ml9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjAiIHkxPSIwIiB4Mj0iNjAiIHkyPSI2MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMTA5NjY1Ii8+CjxzdGAgb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTA5NjY1IiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDFfbGluZWFyIiB4MT0iNjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMxNmEzODUiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTZhMzg1IiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDJfbGluZWFyIiB4MT0iNjAiIHkxPSI2MCIgeDI9IjAiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMxNmEzODUiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTZhMzg1IiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=) repeat" />
       </div>
       {/* Main Footer */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -32,11 +32,11 @@ export const Footer = () => {
           {/* Brand Info */}
           <div className="space-y-4 sm:space-y-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 flex items-center justify-center flex-shrink-0">
                 <Heart className="text-white w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Tumaini<span className="text-blue-400">AI</span>
+              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
+                Tumaini<span className="text-emerald-300">AI</span>
               </span>
             </div>
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
@@ -52,7 +52,7 @@ export const Footer = () => {
                 <a 
                   key={index} 
                   href={social.href} 
-                  className="text-gray-300 hover:text-blue-400 transition-colors p-2 rounded-full hover:bg-slate-800/50"
+                  className="text-gray-300 hover:text-emerald-300 transition-colors p-2 rounded-full hover:bg-emerald-900/50"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -69,9 +69,9 @@ export const Footer = () => {
                 <li key={link.name}>
                   <a 
                     href={link.href} 
-                    className="text-gray-300 hover:text-blue-400 transition-colors flex items-center group"
+                    className="text-gray-300 hover:text-emerald-300 transition-colors flex items-center group"
                   >
-                    <ArrowRight size={14} className="mr-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight size={14} className="mr-2 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.name}
                   </a>
                 </li>
@@ -87,9 +87,9 @@ export const Footer = () => {
                 <li key={resource.name}>
                   <a 
                     href={resource.href} 
-                    className="text-gray-300 hover:text-blue-400 transition-colors flex items-center group"
+                    className="text-gray-300 hover:text-emerald-300 transition-colors flex items-center group"
                   >
-                    <ArrowRight size={14} className="mr-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight size={14} className="mr-2 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                     {resource.name}
                   </a>
                 </li>
@@ -103,7 +103,7 @@ export const Footer = () => {
               <h3 className="text-base sm:text-lg font-bold mb-4">Contact Us</h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <MapPin className="text-blue-400 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                  <MapPin className="text-emerald-300 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                   <div>
                     <p className="text-sm sm:text-base text-gray-300">
                       123 Wellness Street<br />
@@ -112,20 +112,20 @@ export const Footer = () => {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Phone className="text-blue-400 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                  <Phone className="text-emerald-300 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                   <div>
                     <p className="text-sm sm:text-base text-gray-300">
-                      Support: <a href="tel:+254700000000" className="hover:text-blue-400 transition-colors">+254 700 000000</a><br />
-                      Emergency: <a href="tel:+254711000000" className="hover:text-blue-400 transition-colors">+254 711 000000</a>
+                      Support: <a href="tel:+254700000000" className="hover:text-emerald-300 transition-colors">+254 700 000000</a><br />
+                      Emergency: <a href="tel:+254711000000" className="hover:text-emerald-300 transition-colors">+254 711 000000</a>
                     </p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Mail className="text-blue-400 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                  <Mail className="text-emerald-300 mt-0.5 sm:mt-1 flex-shrink-0 w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                   <div>
                     <p className="text-sm sm:text-base text-gray-300">
-                      <a href="mailto:info@tumainiai.com" className="hover:text-blue-400 transition-colors">info@tumainiai.com</a><br />
-                      <a href="mailto:support@tumainiai.com" className="hover:text-blue-400 transition-colors">support@tumainiai.com</a>
+                      <a href="mailto:info@tumainiai.com" className="hover:text-emerald-300 transition-colors">info@tumainiai.com</a><br />
+                      <a href="mailto:support@tumainiai.com" className="hover:text-emerald-300 transition-colors">support@tumainiai.com</a>
                     </p>
                   </div>
                 </li>
@@ -143,7 +143,7 @@ export const Footer = () => {
                 />
                 <Button 
                   type="submit" 
-                  className="h-10 sm:h-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 whitespace-nowrap text-sm sm:text-base"
+                  className="h-10 sm:h-auto bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 whitespace-nowrap text-sm sm:text-base"
                 >
                   Subscribe
                 </Button>
@@ -154,7 +154,7 @@ export const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/10 py-6">
+      <div className="border-t border-emerald-800/50 py-6">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm text-gray-400">
             <div className="text-center sm:text-left space-y-1 sm:space-y-2">
@@ -165,7 +165,7 @@ export const Footer = () => {
             </div>
             <div className="mt-4 sm:mt-0 flex items-center">
               <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Shield className="text-blue-400 w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <Shield className="text-emerald-300 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span className="whitespace-nowrap">Your privacy is our priority</span>
               </div>
             </div>
