@@ -118,12 +118,14 @@ export const mockProfile: MentalHealthProfile = {
 };
 
 export const crisisResources: CrisisResource[] = [
+  // Emergency Services
   {
     name: 'Kenya Red Cross',
     phone: '1199',
     description: 'Emergency mental health support and crisis intervention',
     available: '24/7',
     isEmergency: true,
+    category: 'emergency'
   },
   {
     name: 'Befrienders Kenya',
@@ -131,21 +133,126 @@ export const crisisResources: CrisisResource[] = [
     description: 'Suicide prevention and emotional support helpline',
     available: '24/7',
     isEmergency: true,
+    category: 'emergency'
   },
+  
+  // Hospitals & Clinics
   {
     name: 'Chiromo Lane Medical Centre',
     phone: '+254 20 271 4641',
-    description: 'Professional psychiatric services',
+    description: 'Professional psychiatric services and counseling',
     available: 'Mon-Fri 8AM-5PM',
     isEmergency: false,
+    category: 'healthcare',
+    website: 'https://chiromolane.org/'
   },
   {
     name: 'Mathare National Teaching Hospital',
     phone: '+254 20 263 3691',
-    description: 'Public mental health facility',
+    description: 'Public mental health facility with inpatient and outpatient services',
     available: '24/7',
     isEmergency: false,
+    category: 'healthcare'
   },
+  
+  // Counseling & Therapy
+  {
+    name: 'Nairobi Women\'s Hospital - Gender Violence Recovery Centre',
+    phone: '+254 719 072 000',
+    description: 'Specialized care for survivors of gender-based violence',
+    available: '24/7',
+    isEmergency: true,
+    category: 'counseling',
+    website: 'https://nwch.co.ke/'
+  },
+  {
+    name: 'Amani Counselling Centre',
+    phone: '+254 20 387 4182',
+    description: 'Affordable counseling and psychological services',
+    available: 'Mon-Fri 8:30AM-4:30PM',
+    isEmergency: false,
+    category: 'counseling',
+    website: 'https://www.amanikenya.org/'
+  },
+  
+  // Support Groups
+  {
+    name: 'Mental 360',
+    phone: '+254 700 333 033',
+    description: 'Mental health advocacy and peer support groups',
+    available: 'Mon-Fri 9AM-5PM',
+    isEmergency: false,
+    category: 'support',
+    website: 'https://www.mental360.org/'
+  },
+  {
+    name: 'Nafasi Arts Space',
+    phone: '+254 700 000 000',
+    description: 'Creative arts therapy and mental health support through arts',
+    available: 'Check website for schedule',
+    isEmergency: false,
+    category: 'support',
+    website: 'https://www.nafasiartspace.org/'
+  },
+  
+  // Online Resources
+  {
+    name: 'Mind Your Mind KE',
+    phone: '',
+    description: 'Online mental health resources and community support',
+    available: 'Online',
+    isEmergency: false,
+    category: 'online',
+    website: 'https://www.mindyourmindke.com/'
+  },
+  {
+    name: 'Shamiri Institute',
+    phone: '',
+    description: 'Research-based mental health interventions for youth',
+    available: 'Online resources available',
+    isEmergency: false,
+    category: 'online',
+    website: 'https://www.shamiri.institute/'
+  },
+  
+  // Substance Abuse
+  {
+    name: 'NACADA Helpline',
+    phone: '1192',
+    description: 'National Authority for the Campaign Against Alcohol and Drug Abuse',
+    available: '24/7',
+    isEmergency: true,
+    category: 'addiction'
+  },
+  {
+    name: 'Chiromo Hospital - Addiction Treatment',
+    phone: '+254 703 969 000',
+    description: 'Specialized addiction treatment and rehabilitation',
+    available: '24/7',
+    isEmergency: false,
+    category: 'addiction',
+    website: 'https://chiromohospital.org/'
+  },
+  
+  // Youth & Student Support
+  {
+    name: 'Nairobi Teen Mental Health',
+    phone: '+254 720 123 456',
+    description: 'Mental health services specifically for teenagers',
+    available: 'Mon-Fri 9AM-5PM',
+    isEmergency: false,
+    category: 'youth',
+    website: 'https://nairobiteenmh.org/'
+  },
+  {
+    name: 'University of Nairobi Counselling Centre',
+    phone: '+254 20 491 0000',
+    description: 'Counseling services for university students',
+    available: 'Mon-Fri 8AM-5PM',
+    isEmergency: false,
+    category: 'youth',
+    website: 'https://uonbi.ac.ke/students/counselling-services/'
+  }
 ];
 
 export const earlyWarningProfile: MentalHealthProfile = {

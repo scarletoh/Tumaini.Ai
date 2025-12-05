@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { VoiceRecorder } from './VoiceRecorder';
 import { VoiceAnalysisResults } from './VoiceAnalysisResults';
 import { VoiceAnalysis } from '@/types/mental-health';
@@ -52,14 +53,21 @@ export function VoiceCheckIn({ previousAnalysis, onAnalysisComplete }: VoiceChec
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl mx-auto space-y-8 pt-16">
       {/* Header */}
-      <div className="text-center">
-        <h2 className="text-2xl font-display font-bold text-foreground">Daily Voice Check-In</h2>
-        <p className="text-muted-foreground mt-2">
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
+          Daily Voice Check-In
+        </h2>
+        <p className="text-lg text-muted-foreground">
           Share how you're feeling today. Your voice patterns help us understand your wellbeing.
         </p>
-      </div>
+      </motion.div>
 
       {/* Main Content */}
       <div className="bg-card rounded-2xl border border-border p-6">

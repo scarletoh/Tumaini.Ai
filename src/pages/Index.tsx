@@ -4,9 +4,12 @@ import { HeroSection } from "@/components/tumaini/HeroSection";
 import { Dashboard } from "@/components/tumaini/Dashboard";
 import { VoiceCheckIn } from "@/components/tumaini/VoiceCheckIn";
 import { ResourcesSection } from "@/components/tumaini/ResourcesSection";
+import { HomeContent } from "@/components/tumaini/HomeContent";
+import { Footer } from "@/components/tumaini/Footer";
 import { useMentalHealth } from "@/hooks/use-mental-health";
+import MoodTrackerPage from "@/pages/MoodTrackerPage";
 
-type Section = 'home' | 'dashboard' | 'voice' | 'resources' | 'insights';
+type Section = 'home' | 'dashboard' | 'voice' | 'resources' | 'insights' | 'mood';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<Section>('home');
@@ -41,17 +44,25 @@ const Index = () => {
             <Dashboard profile={profile} onCompleteIntervention={completeIntervention} />
           </div>
         );
+      case 'mood':
+        return <MoodTrackerPage />;
       default:
-        return <HeroSection onGetStarted={() => setActiveSection('dashboard')} />;
+        return (
+          <>
+            <HeroSection onGetStarted={() => setActiveSection('dashboard')} />
+            <HomeContent onGetStarted={() => setActiveSection('dashboard')} />
+          </>
+        );
     }
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header onNavigate={handleNavigate} />
-      <main className="pt-16">
+      <main className="flex-grow">
         {renderSection()}
       </main>
+      <Footer />
     </div>
   );
 };

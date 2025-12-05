@@ -65,4 +65,6 @@ export interface CrisisResource {
   description: string;
   available: string;
   isEmergency: boolean;
+  category?: 'emergency' | 'healthcare' | 'counseling' | 'support' | 'online' | 'addiction' | 'youth';
+  website?: string;
 }
