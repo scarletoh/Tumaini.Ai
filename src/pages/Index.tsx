@@ -4,19 +4,33 @@ import { HeroSection } from "@/components/tumaini/HeroSection";
 import { Dashboard } from "@/components/tumaini/Dashboard";
 import { VoiceCheckIn } from "@/components/tumaini/VoiceCheckIn";
 import { ResourcesSection } from "@/components/tumaini/ResourcesSection";
-import { HomeContent } from "@/components/tumaini/HomeContent";
 import { Footer } from "@/components/tumaini/Footer";
 import { useMentalHealth } from "@/hooks/use-mental-health";
 import MoodTrackerPage from "@/pages/MoodTrackerPage";
+import TryAIAgentSection from "@/components/tumaini/TryAIAgentSection";
+import { useNavigate } from "react-router-dom";
 
 type Section = 'home' | 'dashboard' | 'voice' | 'resources' | 'insights' | 'mood';
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState<Section>('home');
   const { profile, completeIntervention, addVoiceAnalysis } = useMentalHealth();
 
   const handleNavigate = (section: string) => {
     setActiveSection(section as Section);
+  };
+
+  const handleTryAIAgent = () => {
+    setActiveSection('home');
+    // Smooth scroll to chat section or handle navigation
+    const chatSection = document.getElementById('chat-section');
+    if (chatSection) {
+      chatSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback to navigation if chat section is not found
+      navigate('/chat');
+    }
   };
 
   const renderSection = () => {
@@ -48,10 +62,17 @@ const Index = () => {
         return <MoodTrackerPage />;
       default:
         return (
-          <>
+          <div className="relative overflow-hidden">
             <HeroSection onGetStarted={() => setActiveSection('dashboard')} />
-            <HomeContent onGetStarted={() => setActiveSection('dashboard')} />
-          </>
+            <div className="relative z-10">
+              <TryAIAgentSection onTryAIAgent={handleTryAIAgent} />
+            </div>
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 -z-10 overflow-hidden">
+              <div className="absolute -top-1/2 right-0 w-[600px] h-[600px] bg-gradient-to-br from-emerald-50 to-transparent rounded-full opacity-50 blur-3xl"></div>
+              <div className="absolute -bottom-1/4 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-blue-50 to-transparent rounded-full opacity-50 blur-3xl"></div>
+            </div>
+          </div>
         );
     }
   };

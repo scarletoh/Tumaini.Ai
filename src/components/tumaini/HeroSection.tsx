@@ -152,8 +152,8 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
             variants={item}
             className="text-lg sm:text-xl text-slate-700 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Tumaini AI leverages cutting-edge artificial intelligence to detect early signs of mental health conditions 
-            through voice analysis, enabling timely intervention and personalized care for better outcomes.
+            Tumaini AI uses advanced voice analysis and behavioral patterns to detect early warning signs and provide 
+            timely interventions—keeping you one step ahead.
           </motion.p>
 
           {/* CTA Buttons */}
