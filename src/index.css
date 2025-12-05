@@ -1,15 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-@font-face {
-  font-family: 'Brockmann';
-  src: url('/brockmann-medium-webfont.ttf') format('truetype'),
-       url('/brockmann-medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -17,35 +6,49 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Calming mental health color palette */
+    --background: 200 30% 98%;
+    --foreground: 210 40% 15%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 210 40% 15%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 24 95% 53%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 24 95% 53%;
-
-    --radius: 0.5rem;
+    --popover-foreground: 210 40% 15%;
+    
+    --primary: 180 45% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 160 35% 92%;
+    --secondary-foreground: 180 45% 25%;
+    
+    --muted: 200 20% 94%;
+    --muted-foreground: 210 20% 45%;
+    
+    --accent: 35 90% 55%;
+    --accent-foreground: 35 90% 15%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 180 45% 45%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom mental health colors */
+    --calm-blue: 200 70% 50%;
+    --serene-green: 160 50% 45%;
+    --warm-amber: 35 90% 55%;
+    --soft-lavender: 260 40% 70%;
+    --gentle-coral: 15 80% 65%;
+    --safe-teal: 180 45% 45%;
+    
+    /* Risk level colors */
+    --risk-low: 160 60% 45%;
+    --risk-medium: 45 90% 50%;
+    --risk-high: 0 70% 55%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -58,33 +61,34 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 40% 8%;
+    --foreground: 200 20% 95%;
+    
+    --card: 210 40% 12%;
+    --card-foreground: 200 20% 95%;
+    
+    --popover: 210 40% 12%;
+    --popover-foreground: 200 20% 95%;
+    
+    --primary: 180 50% 50%;
+    --primary-foreground: 210 40% 8%;
+    
+    --secondary: 200 30% 18%;
+    --secondary-foreground: 200 20% 90%;
+    
+    --muted: 210 30% 18%;
+    --muted-foreground: 200 20% 60%;
+    
+    --accent: 35 85% 50%;
+    --accent-foreground: 35 90% 95%;
+    
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 210 30% 20%;
+    --input: 210 30% 20%;
+    --ring: 180 50% 50%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 24 95% 53%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,124 +104,122 @@
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-white text-black font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
-  /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: hsl(var(--muted));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: hsl(var(--muted-foreground) / 0.3);
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer utilities {
+  .gradient-calm {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--calm-blue)));
+  }
+  
+  .gradient-serene {
+    background: linear-gradient(135deg, hsl(var(--serene-green)), hsl(var(--primary)));
+  }
+  
+  .gradient-warm {
+    background: linear-gradient(135deg, hsl(var(--warm-amber)), hsl(var(--gentle-coral)));
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--calm-blue)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    @apply bg-card/80 backdrop-blur-lg border border-border/50;
+  }
+  
+  .animate-breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+  
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 1.5s ease-out infinite;
   }
 }
 
 @layer components {
-  .text-mask-image {
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    background-size: cover;
-    background-position: center;
+  .score-gauge {
+    @apply relative w-32 h-32 rounded-full;
+    background: conic-gradient(
+      hsl(var(--primary)) var(--score-percent, 0%),
+      hsl(var(--muted)) var(--score-percent, 0%)
+    );
   }
 
-  .pulse-chip {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pulse-100 text-pulse-600 border border-pulse-200;
-  }
-  
-  .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12;
+  .card-elevated {
+    @apply bg-card rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
-  .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight;
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 font-medium py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg;
   }
 
-  .section-subtitle {
-    @apply text-lg md:text-xl text-gray-600 mt-4 max-w-3xl;
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 font-medium py-3 px-6 rounded-xl transition-all duration-300;
   }
 
-  .glass-card {
-    @apply bg-white/70 backdrop-blur-sm border border-white/20 rounded-2xl shadow-elegant transition-all duration-300 hover:shadow-elegant-hover;
+  .risk-badge-low {
+    @apply bg-risk-low/15 text-risk-low border border-risk-low/30;
   }
 
-  .feature-card {
-    @apply p-6 rounded-2xl transition-all duration-500 hover:translate-y-[-5px];
-  }
-  
-  .button-primary {
-    @apply bg-pulse-500 hover:bg-pulse-600 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98];
+  .risk-badge-medium {
+    @apply bg-risk-medium/15 text-risk-medium border border-risk-medium/30;
   }
 
-  .button-secondary {
-    @apply bg-transparent border border-gray-300 hover:border-pulse-500 text-gray-800 hover:text-pulse-500 font-medium py-3 px-6 rounded-full transition-all duration-300;
+  .risk-badge-high {
+    @apply bg-risk-high/15 text-risk-high border border-risk-high/30;
   }
-  
-  .nav-link {
-    @apply relative text-gray-800 hover:text-pulse-500 py-2 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-pulse-500 after:transition-all hover:after:w-full;
-  }
-}
-
-.image-scale-in {
-  animation: scaleIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-@keyframes scaleIn {
-  0% {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-
-.hover-lift {
-  transition: transform 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-}
-
-/* Parallax effect */
-.parallax {
-  transform: translateY(var(--parallax-y, 0));
-  transition: transform 0.1s ease-out;
 }
