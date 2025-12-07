@@ -118,6 +118,10 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        wave: {
+          '0%, 100%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(100%)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -126,6 +130,7 @@ export default {
         "scale-in": "scale-in 0.3s ease-out",
         "pulse-ring": "pulse-ring 1.5s ease-out infinite",
         float: "float 6s ease-in-out infinite",
+        "wave-ambient": "wave 8s ease-in-out infinite",
       },
       boxShadow: {
         elegant: "0 4px 20px rgba(0, 0, 0, 0.08)",

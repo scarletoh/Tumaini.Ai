@@ -2,7 +2,8 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
+import Link from 'next/link';
 
 export const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +20,7 @@ export const Footer = () => {
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
+
   const quickLinks = [
     { name: 'Home', href: '#home', icon: <ArrowRight className="w-4 h-4" /> },
     { name: 'Features', href: '#features', icon: <Heart className="w-4 h-4" /> },
@@ -43,161 +45,181 @@ export const Footer = () => {
     { icon: <Linkedin className="w-4 h-4" />, href: '#', label: 'LinkedIn' },
   ];
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
 
-  // Navigation link component
-  const NavLink = ({ href, icon, children }: { href: string; icon: React.ReactNode; children: React.ReactNode }) => (
-    <a 
+  // Memoized navigation link component for better performance
+  const NavLink = memo(({ href, children, className = '' }: { 
+    href: string; 
+    children: React.ReactNode; 
+    className?: string 
+  }) => (
+    <Link 
       href={href} 
-      className="text-gray-400 hover:text-white transition-colors flex items-center group text-sm"
+      className={`text-sm text-gray-400 hover:text-white transition-colors inline-block group ${className}`}
+      aria-label={typeof children === 'string' ? children : 'Link'}
     >
-      <span className="w-5 h-5 mr-2 flex items-center justify-center text-emerald-500 group-hover:text-emerald-400 transition-colors">
-        {icon}
-      </span>
-      <span className="relative after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-emerald-400 after:transition-all after:duration-300 group-hover:after:w-full">
+      <span className="relative after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-emerald-400 after:transition-all after:duration-200 group-hover:after:w-full">
         {children}
       </span>
-    </a>
-  );
+    </Link>
+  ));
+  
+  NavLink.displayName = 'NavLink';
 
-  // Section header component
-  const SectionHeader = ({ children }: { children: React.ReactNode }) => (
-    <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-6">
+  // Memoized section header component with subtle underline
+  const SectionHeader = memo(({ children }: { children: React.ReactNode }) => (
+    <h3 
+      className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-3 pb-1.5 relative inline-block"
+      aria-level={3}
+    >
       {children}
+      <span 
+        className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-emerald-400/30 to-transparent"
+        aria-hidden="true"
+      />
     </h3>
-  );
+  ));
+  
+  SectionHeader.displayName = 'SectionHeader';
 
-  // Card component
-  const Card = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <div className={`bg-gradient-to-br from-slate-800/30 to-slate-900/30 p-6 rounded-xl border border-white/5 ${className}`}>
+  // Memoized card component with better accessibility
+  const Card = memo(({ 
+    children, 
+    className = '' 
+  }: { 
+    children: React.ReactNode; 
+    className?: string 
+  }) => (
+    <div 
+      className={`bg-gradient-to-br from-slate-800/30 to-slate-900/30 rounded-lg border border-white/5 backdrop-blur-sm ${className}`}
+      role="region"
+      aria-label="Card content"
+    >
       {children}
     </div>
-  );
+  ));
+  
+  Card.displayName = 'Card';
 
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 text-white relative overflow-hidden border-t border-white/5">
-      {/* Decorative elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-500/5 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjAiIHkxPSIwIiB4Mj0iNjAiIHkyPSI2MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMTA5NjY1Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzEwOTY2NSIgc3RvcC1vcGFjaXR5PSIwIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==') repeat" />
+    <footer 
+      className="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 text-white relative overflow-hidden border-t border-white/5"
+      role="contentinfo"
+      aria-label="Website footer"
+    >
+      {/* Decorative elements with reduced motion support */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-500/5 via-transparent to-transparent"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)'
+          }}
+        />
+        <div 
+          className="absolute inset-0 opacity-50 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMEg2MFY2MEgwVjBaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjAiIHkxPSIwIiB4Mj0iNjAiIHkyPSI2MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMTA5NjY1Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzEwOTY2NSIgc3RvcC1vcGFjaXR5PSIwIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==') repeat"
+          style={{
+            willChange: 'opacity',
+            transform: 'translateZ(0)'
+          }}
+        />
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
           {/* Brand & Social */}
-          <div className="lg:col-span-4 space-y-6">
-            <motion.div 
-              className="flex items-center gap-3 cursor-pointer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
-                <MessageSquare className="w-5 h-5 text-white" />
+          <div className="lg:col-span-3 space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow">
+                <MessageSquare className="w-4 h-4 text-white" />
               </div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
                 Tumaini<span className="font-extrabold">AI</span>
               </h2>
-            </motion.div>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Empowering mental wellness through AI-powered early detection and intervention for a healthier tomorrow.
+            </div>
+            <p className="text-xs text-gray-400">
+              Empowering mental wellness through AI-powered early detection.
             </p>
-            <div className="flex items-center gap-4 pt-2">
+            <div className="flex items-center gap-3 pt-1">
               {socialLinks.map((social, index) => (
-                <motion.a 
+                <a 
                   key={index} 
                   href={social.href} 
-                  className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
+                  className="text-gray-500 hover:text-white transition-colors"
                   aria-label={social.label}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="lg:col-span-2 mt-4">
+          <div className="lg:col-span-2">
             <SectionHeader>Quick Links</SectionHeader>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <motion.li 
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                >
-                  <NavLink href={link.href} icon={link.icon}>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <NavLink href={link.href}>
                     {link.name}
                   </NavLink>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Resources */}
-          <div className="lg:col-span-2 mt-4">
+          <div className="lg:col-span-2">
             <SectionHeader>Resources</SectionHeader>
-            <ul className="space-y-3">
-              {resources.map((resource, index) => (
-                <motion.li 
-                  key={resource.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 * index + 0.3 }}
-                >
-                  <NavLink href={resource.href} icon={resource.icon}>
+            <ul className="space-y-2.5">
+              {resources.map((resource) => (
+                <li key={resource.name}>
+                  <NavLink href={resource.href}>
                     {resource.name}
                   </NavLink>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Contact & Newsletter */}
-          <div className="lg:col-span-4 space-y-6">
-            <Card className="bg-gradient-to-br from-emerald-900/30 to-emerald-900/10">
+          <div className="lg:col-span-5 space-y-4">
+            <Card className="bg-gradient-to-br from-emerald-900/30 to-emerald-900/10 p-4">
               <SectionHeader>Newsletter</SectionHeader>
-              <p className="text-sm text-gray-400 mb-4">Subscribe to get updates on new features and releases.</p>
+              <p className="text-xs text-gray-400 mb-3">Get updates on new features and releases.</p>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Input 
                   type="email" 
                   placeholder="Your email" 
-                  className="bg-white/5 border-0 text-white placeholder-gray-500 focus-visible:ring-1 focus-visible:ring-emerald-500 flex-1"
+                  className="h-9 bg-white/5 border-0 text-white placeholder-gray-500 focus-visible:ring-1 focus-visible:ring-emerald-500 text-xs"
                 />
                 <Button 
                   type="submit" 
-                  className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-0 shadow-lg shadow-emerald-500/20 whitespace-nowrap"
+                  size="sm"
+                  className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-0 shadow-emerald-500/20 whitespace-nowrap"
                 >
-                  <Send className="w-4 h-4 mr-2" />
+                  <Send className="w-3.5 h-3.5 mr-1.5" />
                   Subscribe
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">We care about your data. Read our <a href="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</a>.</p>
             </Card>
             
-            <Card>
+            <Card className="p-4">
               <SectionHeader>Contact Us</SectionHeader>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="bg-emerald-900/50 p-2 rounded-lg text-emerald-400 flex-shrink-0">
-                    <MapPin className="w-4 h-4" />
+              <ul className="space-y-3">
+                <li className="flex items-start gap-2">
+                  <div className="bg-emerald-900/50 p-1.5 rounded-md text-emerald-400 flex-shrink-0 mt-0.5">
+                    <MapPin className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      Brookside Drive,<br />
-                      Westlands, Kenya
+                    <p className="text-xs text-gray-300">
+                      Brookside Drive, Westlands, Kenya
                     </p>
                   </div>
                 </li>
@@ -223,49 +245,66 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright Section */}
-      <div className="border-t border-emerald-800/50 py-6">
+      {/* Copyright Section - Optimized */}
+      <div className="border-t border-emerald-800/50 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
             <div className="text-center md:text-left">
-              <div className="text-sm text-gray-400">
-                © {new Date().getFullYear()} Tumaini AI. All rights reserved.
-              </div>
-              <div className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-400">
+                &copy; {new Date().getFullYear()} Tumaini AI. All rights reserved.
+              </p>
+              <p className="text-[11px] text-gray-500 mt-0.5">
                 Built by Scar
-              </div>
+              </p>
             </div>
             
-            <div className="flex items-center gap-6">
-              <a href="/privacy" className="text-xs text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="/terms" className="text-xs text-gray-400 hover:text-white transition-colors">
-                Terms of Service
-              </a>
-              <a href="/cookies" className="text-xs text-gray-400 hover:text-white transition-colors">
-                Cookie Policy
-              </a>
-            </div>
+            <nav aria-label="Legal links">
+              <ul className="flex items-center flex-wrap justify-center gap-4 mt-2 md:mt-0">
+                <li>
+                  <Link 
+                    href="/privacy" 
+                    className="text-[11px] text-gray-400 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-slate-900 rounded px-1"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    href="/terms" 
+                    className="text-[11px] text-gray-400 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-slate-900 rounded px-1"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    href="/cookies" 
+                    className="text-[11px] text-gray-400 hover:text-white transition-colors whitespace-nowrap focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-slate-900 rounded px-1"
+                  >
+                    Cookie Policy
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
 
-      {/* Back to top button */}
+      {/* Optimized back to top button with reduced motion support */}
       <AnimatePresence>
         {isVisible && (
           <motion.button
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 bg-gradient-to-br from-emerald-600 to-emerald-700 p-3 rounded-full shadow-lg z-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+            className="fixed bottom-6 right-6 w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-white shadow-lg z-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400 focus:ring-offset-slate-900 transition-colors duration-200"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            whileHover={{ scale: 1.05, y: -2, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.2)' }}
-            whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             aria-label="Back to top"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ArrowUp className="w-5 h-5 text-white" />
+            <ArrowUp className="w-5 h-5" aria-hidden="true" />
           </motion.button>
         )}
       </AnimatePresence>

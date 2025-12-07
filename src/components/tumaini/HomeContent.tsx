@@ -1,6 +1,7 @@
 import { Shield, Activity, Clock, Users, BarChart2, Heart, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { EmpathySection } from './EmpathySection';
 
 interface HomeContentProps {
   onGetStarted: () => void;
@@ -61,6 +62,8 @@ export function HomeContent({ onGetStarted }: HomeContentProps) {
 
   return (
     <>
+      <EmpathySection />
+      
       {/* Features Section */}
       <section id="features" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4">

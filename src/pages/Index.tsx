@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMentalHealth } from "@/hooks/use-mental-health";
+
+// Components
 import { Header } from "@/components/tumaini/Header";
 import { HeroSection } from "@/components/tumaini/HeroSection";
+import { EmpathySection } from "@/components/tumaini/EmpathySection";
+import { FeaturesSection } from "@/components/tumaini/FeaturesSection";
+import { HowItWorks } from "@/components/tumaini/HowItWorks";
+import { CTASection } from "@/components/tumaini/CTASection";
 import { Dashboard } from "@/components/tumaini/Dashboard";
 import { VoiceCheckIn } from "@/components/tumaini/VoiceCheckIn";
 import { ResourcesSection } from "@/components/tumaini/ResourcesSection";
 import { Footer } from "@/components/tumaini/Footer";
-import { useMentalHealth } from "@/hooks/use-mental-health";
 import MoodTrackerPage from "@/pages/MoodTrackerPage";
 import TryAIAgentSection from "@/components/tumaini/TryAIAgentSection";
-import { useNavigate } from "react-router-dom";
 
 type Section = 'home' | 'dashboard' | 'voice' | 'resources' | 'insights' | 'mood';
 
@@ -35,6 +41,17 @@ const Index = () => {
 
   const renderSection = () => {
     switch (activeSection) {
+      case 'home':
+        return (
+          <>
+            <HeroSection onGetStarted={() => handleNavigate('voice')} />
+            <TryAIAgentSection onTryAIAgent={handleTryAIAgent} />
+            <FeaturesSection />
+            <HowItWorks />
+            <EmpathySection />
+            <CTASection />
+          </>
+        );
       case 'dashboard':
         return (
           <div className="container mx-auto px-4 pt-16 pb-8">

@@ -122,15 +122,37 @@ export function LanguageSelector() {
     setIsOpen(false);
   }, [currentLang]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isOpen && !target.closest('.language-selector-container')) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="relative ml-4">
+    <div 
+      className="relative ml-4 language-selector-container"
+      onMouseDown={(e) => e.preventDefault()}
+    >
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+        onMouseDown={(e) => e.preventDefault()}
         disabled={isTranslating}
-        className={`flex items-center space-x-1 text-sm font-medium ${
-          isTranslating ? 'text-gray-400' : 'text-gray-700 hover:text-gray-900'
-        } focus:outline-none transition-colors`}
+        className="flex items-center space-x-1 text-sm font-medium text-gray-700 focus:outline-none select-none"
         aria-label={isTranslating ? 'Translating...' : 'Change language'}
+        aria-expanded={isOpen}
       >
         {isTranslating ? (
           <Loader2 className="w-4 h-4 animate-spin" />
@@ -143,7 +165,10 @@ export function LanguageSelector() {
       </button>
 
       {isOpen && !isTranslating && (
-        <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100">
+        <div 
+          className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100"
+          onMouseDown={(e) => e.stopPropagation()}
+        >
           {languages.map((lang) => (
             <button
               key={lang.code}
@@ -151,11 +176,7 @@ export function LanguageSelector() {
                 changeLanguage(lang.code);
                 setIsOpen(false);
               }}
-              className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
-                currentLang === lang.code
-                  ? 'bg-emerald-50 text-emerald-700 font-medium'
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700"
               disabled={isTranslating || currentLang === lang.code}
             >
               <div className="flex items-center">

@@ -268,15 +268,15 @@ export function Header({ onNavigate }: HeaderProps) {
           {/* Actions */}
           <div className="flex items-center gap-4">
             {/* Language Switcher with Enhanced Hover */}
-            <div className="relative group">
+            <div className="relative">
               <Button 
                 variant="ghost" 
                 size="sm" 
                 className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                onMouseEnter={() => setIsLanguageOpen(true)}
-                onMouseLeave={() => setTimeout(() => !document.querySelector(':hover[data-language-menu]') && setIsLanguageOpen(false), 100)}
+                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                onMouseDown={(e) => e.preventDefault()}
               >
-                <Globe className="w-4 h-4 transition-transform group-hover:rotate-12" />
+                <Globe className="w-4 h-4" />
                 <span className="hidden sm:inline">{language === 'en' ? 'English' : 'Swahili'}</span>
                 <span className="sm:hidden">{language === 'en' ? 'EN' : 'SW'}</span>
                 <motion.span 
@@ -289,11 +289,10 @@ export function Header({ onNavigate }: HeaderProps) {
               <motion.div 
                 data-language-menu
                 className="absolute right-0 mt-2 w-40 bg-background rounded-lg shadow-xl border border-border/50 overflow-hidden z-50"
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={isLanguageOpen ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={isLanguageOpen ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                onMouseEnter={() => setIsLanguageOpen(true)}
-                onMouseLeave={() => setIsLanguageOpen(false)}
+                onClick={(e) => e.stopPropagation()}
               >
                 <div className="p-2 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
                   <p className="text-xs font-medium text-primary">{t('selectLanguage')}</p>
@@ -332,16 +331,15 @@ export function Header({ onNavigate }: HeaderProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="relative p-1.5 text-muted-foreground hover:text-foreground group"
-                onMouseEnter={() => setShowHabitTracker(true)}
-                onMouseLeave={() => setTimeout(() => !document.querySelector(':hover[data-habit-tracker]') && setShowHabitTracker(false), 100)}
+                className="relative p-1.5 text-muted-foreground hover:text-foreground"
+                onClick={() => setShowHabitTracker(!showHabitTracker)}
+                onMouseDown={(e) => e.preventDefault()}
               >
                 <div className="relative
                   w-8 h-8 rounded-lg flex items-center justify-center
                   bg-gradient-to-br from-primary/10 to-primary/5
-                  group-hover:from-primary/20 group-hover:to-primary/10
-                  transition-all duration-300 ease-in-out
-                  border border-border/30 group-hover:border-primary/30
+                  transition-all duration-200 ease-in-out
+                  border border-border/30
                 ">
                   <CheckCircle className="w-4 h-4 text-primary" />
                   {completedHabits > 0 && (
@@ -355,134 +353,139 @@ export function Header({ onNavigate }: HeaderProps) {
               {/* Habit Tracker Popover */}
               <AnimatePresence>
                 {showHabitTracker && (
-                  <motion.div
-                    data-habit-tracker
-                    className="absolute right-0 mt-2 w-64 bg-background rounded-lg shadow-xl border border-border/50 overflow-hidden z-50"
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    onMouseEnter={() => setShowHabitTracker(true)}
-                    onMouseLeave={() => setShowHabitTracker(false)}
-                  >
-                    <div className="p-3 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-medium">Daily Habits</h3>
-                        <span className="text-xs text-muted-foreground">
-                          {completedHabits}/{totalHabits} {t('completed')}
-                        </span>
-                      </div>
-                      <div className="w-full bg-accent/30 h-1.5 rounded-full mt-2 overflow-hidden">
-                        <motion.div 
-                          className="h-full bg-primary rounded-full"
-                          initial={{ width: '0%' }}
-                          animate={{ width: `${(completedHabits / totalHabits) * 100}%` }}
-                          transition={{ duration: 0.6, ease: 'easeOut' }}
-                        />
-                      </div>
-                    </div>
-                    <div className="p-2 space-y-1">
-                      {habits.map(habit => (
-                        <div 
-                          key={habit.id}
-                          onClick={() => toggleHabit(habit.id)}
-                          className={`flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors ${
-                            habit.completed 
-                              ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' 
-                              : 'hover:bg-accent/50'
-                          }`}
-                        >
-                          <div className="relative group">
-                            <div className={`w-7 h-7 rounded-md flex items-center justify-center ${
-                              habit.completed 
-                                ? 'bg-green-100 dark:bg-green-800/50 text-green-600 dark:text-green-300' 
-                                : 'bg-accent text-muted-foreground'
-                            }`}>
-                              {habit.completed ? <Check className="w-3.5 h-3.5" /> : <span>{habit.icon}</span>}
-                            </div>
-                            <button 
-                              onClick={(e) => handleDeleteHabit(habit.id, e)}
-                              className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-xs hover:bg-red-600"
-                              title="Delete habit"
-                            >
-                              ×
-                            </button>
-                          </div>
-                          <span className="text-sm">{habit.name}</span>
-                          <span className="ml-auto text-xs text-muted-foreground">
-                            {habit.completed ? t('completed') : t('tapToComplete')}
+                  <>
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setShowHabitTracker(false)}
+                    />
+                    <motion.div
+                      data-habit-tracker
+                      className="absolute right-0 mt-2 w-64 bg-background rounded-lg shadow-xl border border-border/50 overflow-hidden z-50"
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="p-3 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-sm font-medium">Daily Habits</h3>
+                          <span className="text-xs text-muted-foreground">
+                            {completedHabits}/{totalHabits} {t('completed')}
                           </span>
                         </div>
-                      ))}
-                    </div>
-                    {showAddHabitForm ? (
-                      <div className="p-3 border-t border-border/30">
-                        <form onSubmit={handleAddHabit} className="space-y-3">
-                          <div>
-                            <label htmlFor="habitName" className="block text-xs font-medium text-muted-foreground mb-1">
-                              {t('habitName')}
-                            </label>
-                            <input
-                              type="text"
-                              id="habitName"
-                              value={newHabitName}
-                              onChange={(e) => setNewHabitName(e.target.value)}
-                              className="w-full px-3 py-2 text-sm border border-border/50 rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
-                              placeholder={t('enterHabitName')}
-                              autoFocus
-                              required
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-medium text-muted-foreground mb-1">
-                              {t('selectIcon')}
-                            </label>
-                            <div className="grid grid-cols-6 gap-2">
-                              {habitIcons.map((icon) => (
-                                <button
-                                  key={icon}
-                                  type="button"
-                                  onClick={() => setSelectedIcon(icon)}
-                                  className={`w-8 h-8 flex items-center justify-center rounded-md text-lg transition-colors ${
-                                    selectedIcon === icon
-                                      ? 'bg-primary/20 text-primary border border-primary/30'
-                                      : 'bg-accent/30 hover:bg-accent/50'
-                                  }`}
-                                >
-                                  {icon}
-                                </button>
-                              ))}
+                        <div className="w-full bg-accent/30 h-1.5 rounded-full mt-2 overflow-hidden">
+                          <motion.div 
+                            className="h-full bg-primary rounded-full"
+                            initial={{ width: '0%' }}
+                            animate={{ width: `${(completedHabits / totalHabits) * 100}%` }}
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                          />
+                        </div>
+                      </div>
+                      <div className="p-2 space-y-1">
+                        {habits.map(habit => (
+                          <div 
+                            key={habit.id}
+                            onClick={() => toggleHabit(habit.id)}
+                            className={`flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors ${
+                              habit.completed 
+                                ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' 
+                                : 'hover:bg-accent/50'
+                            }`}
+                          >
+                            <div className="relative group">
+                              <div className={`w-7 h-7 rounded-md flex items-center justify-center ${
+                                habit.completed 
+                                  ? 'bg-green-100 dark:bg-green-800/50 text-green-600 dark:text-green-300' 
+                                  : 'bg-accent text-muted-foreground'
+                              }`}>
+                                {habit.completed ? <Check className="w-3.5 h-3.5" /> : <span>{habit.icon}</span>}
+                              </div>
+                              <button 
+                                onClick={(e) => handleDeleteHabit(habit.id, e)}
+                                className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-xs hover:bg-red-600"
+                                title="Delete habit"
+                              >
+                                ×
+                              </button>
                             </div>
+                            <span className="text-sm">{habit.name}</span>
+                            <span className="ml-auto text-xs text-muted-foreground">
+                              {habit.completed ? t('completed') : t('tapToComplete')}
+                            </span>
                           </div>
-                          <div className="flex gap-2 pt-2">
-                            <button
-                              type="submit"
-                              className="flex-1 py-1.5 px-3 text-xs font-medium bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-                            >
-                              {t('addHabit')}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setShowAddHabitForm(false)}
-                              className="py-1.5 px-3 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              {t('cancel')}
-                            </button>
-                          </div>
-                        </form>
+                        ))}
                       </div>
-                    ) : (
-                      <div className="p-2 border-t border-border/30 bg-accent/10">
-                        <button 
-                          onClick={() => setShowAddHabitForm(true)}
-                          className="w-full py-1.5 px-3 text-xs font-medium text-primary hover:bg-primary/10 rounded-md transition-colors flex items-center justify-center gap-1.5"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                          {t('addNewHabit')}
-                        </button>
-                      </div>
-                    )}
-                  </motion.div>
+                      {showAddHabitForm ? (
+                        <div className="p-3 border-t border-border/30">
+                          <form onSubmit={handleAddHabit} className="space-y-3">
+                            <div>
+                              <label htmlFor="habitName" className="block text-xs font-medium text-muted-foreground mb-1">
+                                {t('habitName')}
+                              </label>
+                              <input
+                                type="text"
+                                id="habitName"
+                                value={newHabitName}
+                                onChange={(e) => setNewHabitName(e.target.value)}
+                                className="w-full px-3 py-2 text-sm border border-border/50 rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
+                                placeholder={t('enterHabitName')}
+                                autoFocus
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-muted-foreground mb-1">
+                                {t('selectIcon')}
+                              </label>
+                              <div className="grid grid-cols-6 gap-2">
+                                {habitIcons.map((icon) => (
+                                  <button
+                                    key={icon}
+                                    type="button"
+                                    onClick={() => setSelectedIcon(icon)}
+                                    className={`w-8 h-8 flex items-center justify-center rounded-md text-lg transition-colors ${
+                                      selectedIcon === icon
+                                        ? 'bg-primary/20 text-primary border border-primary/30'
+                                        : 'bg-accent/30 hover:bg-accent/50'
+                                    }`}
+                                  >
+                                    {icon}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="flex gap-2 pt-2">
+                              <button
+                                type="submit"
+                                className="flex-1 py-1.5 px-3 text-xs font-medium bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                              >
+                                {t('addHabit')}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setShowAddHabitForm(false)}
+                                className="py-1.5 px-3 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                {t('cancel')}
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      ) : (
+                        <div className="p-2 border-t border-border/30 bg-accent/10">
+                          <button 
+                            onClick={() => setShowAddHabitForm(true)}
+                            className="w-full py-1.5 px-3 text-xs font-medium text-primary hover:bg-primary/10 rounded-md transition-colors flex items-center justify-center gap-1.5"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            {t('addNewHabit')}
+                          </button>
+                        </div>
+                      )}
+                    </motion.div>
+                  </>
                 )}
               </AnimatePresence>
             </div>

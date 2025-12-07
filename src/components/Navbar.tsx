@@ -101,7 +101,11 @@ const Navbar = () => {
 
         <div className="flex items-center">
           {/* Language Selector - Desktop */}
-          <div className="hidden md:block mr-4">
+          <div 
+            className="hidden md:block mr-4" 
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.preventDefault()}
+          >
             <LanguageSelector />
           </div>
           
@@ -170,7 +174,11 @@ const Navbar = () => {
           </a>
           
           {/* Language Selector - Mobile */}
-          <div className="w-full pt-4 border-t border-gray-100">
+          <div 
+            className="w-full pt-4 border-t border-gray-100"
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.preventDefault()}
+          >
             <div className="px-6 py-3">
               <p className="text-sm text-gray-500 mb-2">Select Language</p>
               <LanguageSelector />
